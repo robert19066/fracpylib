@@ -107,3 +107,31 @@ class FracMath:
         
         raw_result = Fraction(numerator=new_numerator, denominator=new_denominator)
         return self.simplify(raw_result, Recurse=True)
+    
+    def mixedToNormal(self, whole: int, numerator: int, denominator: int) -> Fraction:
+        """Converts a mixed fraction into a regular (improper) Fraction.
+
+        Args:
+            whole (int): The whole number part.
+            numerator (int): The numerator of the fraction part.
+            denominator (int): The denominator of the fraction part.
+
+        Returns:
+            Fraction: The simplified, regular fraction.
+        """
+        if denominator == 0:
+            raise ZeroDivisionError("Denominator cannot be zero, dummy!")
+
+        # Formula: (whole * denominator) + numerator
+        improper_numerator = (whole * denominator) + numerator
+        
+        raw_fraction = Fraction(improper_numerator, denominator)
+        
+        # Simplify it to the lowest terms using your existing Recurse logic!
+        return self.simplify(raw_fraction, Recurse=True)
+    
+    def getResultOfMul(self, fraction: Fraction):
+        return fraction.denominator * fraction.numerator
+    
+    def getResultOfDiv(self, fraction: Fraction):
+        return fraction.numerator / fraction.denominator

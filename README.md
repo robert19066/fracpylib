@@ -2,7 +2,8 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/fracpylib.svg)](https://pypi.org/project/fracpylib)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/fracpylib.svg)](https://pypi.org/project/fracpylib)
-
+_THE DOCUMENTATION IS NOT DONE YET! BUT THE LIBRARY IS OUT!_
+TODO: MAKE THE DAMN DOCUMENTATION.
 -----
 
 ## Table of Contents

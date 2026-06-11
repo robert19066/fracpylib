@@ -24,7 +24,6 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
 
 [project.urls]
 Documentation = "https://github.com/robert19066/fracpylib#readme"
@@ -34,13 +33,13 @@ Source = "https://github.com/robert19066/fracpylib"
 [tool.hatch.version]
 path = "src/fracpylib/__about__.py"
 
-[tool.hatch.envs.types]
-extra-dependencies = [
+[tool.hatch.environments.types]
+dependencies = [
   "mypy>=1.0.0",
   "twine"
 ]
 [tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/fracpylib tests}"
+check = "python -m mypy --install-types --non-interactive {args:src/fracpylib tests}"
 
 [tool.coverage.run]
 source_pkgs = ["fracpylib", "tests"]
