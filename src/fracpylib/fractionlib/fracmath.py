@@ -1,137 +1,105 @@
+from __future__ import annotations
 import math
-from fracpylib.fractionlib.fraction import Fraction
-import warnings
+from typing import TYPE_CHECKING
+
+# Prevent circular import loops at runtime
+if TYPE_CHECKING:
+    from fracpylib.fractionlib.fraction import Fraction
 
 class FracMath:
-    def __init__(self):
-        pass
-
-    def simplify(self, fraction: Fraction, Recurse: bool, Value: int = 0):
-        """Simplifies a fraction.
-
-        Args:
-            fraction (Fraction): Fraction to simplify
-            Recurse (bool): If True, simplifies to the lowest value possible.
-            Value (int): (only if Recurse is False) The value to simplify the fraction with.
-        """
-        if Recurse == True:
+    
+    @staticmethod
+    def simplify(fraction: Fraction, Recurse: bool = True, Value: int = 0) -> Fraction:
+        """Simplifies a fraction to its lowest terms."""
+        # Note: Importing Fraction here avoids circular dependencies during runtime initialization
+        from fracpylib.fractionlib.fraction import Fraction 
+        
+        if Recurse:
             gcd = math.gcd(fraction.numerator, fraction.denominator)
-            simplified_numerator = fraction.numerator // gcd
-            simplified_denominator = fraction.denominator // gcd
-            return Fraction(simplified_numerator, simplified_denominator)
-        else:
-            if (fraction.numerator % Value == 0) and (fraction.denominator % Value == 0):
-                simplified_numerator = fraction.numerator // Value
-                simplified_denominator = fraction.denominator // Value
-                return Fraction(simplified_numerator, simplified_denominator)
-            else:
-                print("THE VALUE MUST BE A COMMON DIVISOR OF THE NUMERATOR AND DENOMINATOR, DUMMY!")
-                raise ValueError("Not a common divisor.")
+            return Fraction(fraction.numerator // gcd, fraction.denominator // gcd)
+        
+        if Value == 0:
+            raise ValueError("Cannot simplify with a value of 0.")
+            
+        if (fraction.numerator % Value == 0) and (fraction.denominator % Value == 0):
+            return Fraction(fraction.numerator // Value, fraction.denominator // Value)
+            
+        raise ValueError(f"The value {Value} must be a common divisor, dummy!")
 
-    def amplify(self, fraction: Fraction, Value: int):
-        """Amplifies a fraction with a given number.
-
-        Args:
-            fraction (Fraction): The fraction to amplify
-            Value (int): The value to amplify the fraction.
-
-        Returns:
-            Fraction: The amplified fraction.
-        """
+    @staticmethod
+    def amplify(fraction: Fraction, Value: int) -> Fraction:
+        """Amplifies a fraction with a given number."""
+        from fracpylib.fractionlib.fraction import Fraction
         return Fraction(fraction.numerator * Value, fraction.denominator * Value)
 
-    def add(self, fraction1: Fraction, fraction2: Fraction):
-        """Adds 2 fractions automatically by finding a common denominator.
-
-        Args:
-            fraction1 (Fraction): First fraction
-            fraction2 (Fraction): Second fraction
-
-        Returns:
-            Fraction: The simplified sum of the 2 fractions.
-        """
-        # Cross-multiply to get a common denominator automatically!
+    @staticmethod
+    def add(fraction1: Fraction, fraction2: Fraction) -> Fraction:
+        """Adds 2 fractions."""
+        from fracpylib.fractionlib.fraction import Fraction
         new_numerator = (fraction1.numerator * fraction2.denominator) + (fraction2.numerator * fraction1.denominator)
         new_denominator = fraction1.denominator * fraction2.denominator
-        
-        # Save and return the simplified result so it doesn't get thrown away
-        raw_result = Fraction(numerator=new_numerator, denominator=new_denominator)
-        return self.simplify(raw_result, Recurse=True)
+        return FracMath.simplify(Fraction(new_numerator, new_denominator))
     
-    def sub(self, fraction1: Fraction, fraction2: Fraction):
-        """Subtracts 2 fractions automatically by finding a common denominator.
-
-        Args:
-            fraction1 (Fraction): Fraction being subtracted from
-            fraction2 (Fraction): Fraction to subtract
-
-        Returns:
-            Fraction: The simplified difference of the 2 fractions.
-        """
-        # Cross-multiply just like addition, but subtract
+    @staticmethod
+    def sub(fraction1: Fraction, fraction2: Fraction) -> Fraction:
+        """Subtracts 2 fractions."""
+        from fracpylib.fractionlib.fraction import Fraction
         new_numerator = (fraction1.numerator * fraction2.denominator) - (fraction2.numerator * fraction1.denominator)
         new_denominator = fraction1.denominator * fraction2.denominator
-        
-        raw_result = Fraction(numerator=new_numerator, denominator=new_denominator)
-        return self.simplify(raw_result, Recurse=True)
+        return FracMath.simplify(Fraction(new_numerator, new_denominator))
 
-    def multiply(self, fraction1: Fraction, fraction2: Fraction):
-        """Multiplies two fractions.
-        
-        Args:
-            fraction1 (Fraction): First fraction
-            fraction2 (Fraction): Second fraction
-            
-        Returns:
-            Fraction: The simplified product.
-        """
+    @staticmethod
+    def multiply(fraction1: Fraction, fraction2: Fraction) -> Fraction:
+        """Multiplies two fractions."""
+        from fracpylib.fractionlib.fraction import Fraction
         new_numerator = fraction1.numerator * fraction2.numerator
         new_denominator = fraction1.denominator * fraction2.denominator
-        
-        raw_result = Fraction(numerator=new_numerator, denominator=new_denominator)
-        return self.simplify(raw_result, Recurse=True)
+        return FracMath.simplify(Fraction(new_numerator, new_denominator))
 
-    def divide(self, fraction1: Fraction, fraction2: Fraction):
-        """Divides the first fraction by the second fraction.
-        
-        Args:
-            fraction1 (Fraction): The dividend
-            fraction2 (Fraction): The divisor
-            
-        Returns:
-            Fraction: The simplified quotient.
-        """
-        # To divide fractions, you multiply by the reciprocal (flip the second fraction)
+    @staticmethod
+    def divide(fraction1: Fraction, fraction2: Fraction) -> Fraction:
+        """Divides the first fraction by the second fraction."""
+        from fracpylib.fractionlib.fraction import Fraction
         new_numerator = fraction1.numerator * fraction2.denominator
         new_denominator = fraction1.denominator * fraction2.numerator
-        
-        raw_result = Fraction(numerator=new_numerator, denominator=new_denominator)
-        return self.simplify(raw_result, Recurse=True)
+        return FracMath.simplify(Fraction(new_numerator, new_denominator))
     
-    def mixedToNormal(self, whole: int, numerator: int, denominator: int) -> Fraction:
-        """Converts a mixed fraction into a regular (improper) Fraction.
-
-        Args:
-            whole (int): The whole number part.
-            numerator (int): The numerator of the fraction part.
-            denominator (int): The denominator of the fraction part.
-
-        Returns:
-            Fraction: The simplified, regular fraction.
-        """
+    @staticmethod
+    def mixedToNormal(whole: int, numerator: int, denominator: int) -> Fraction:
+        """Converts a mixed fraction into a regular (improper) Fraction."""
+        from fracpylib.fractionlib.fraction import Fraction
         if denominator == 0:
             raise ZeroDivisionError("Denominator cannot be zero, dummy!")
 
-        # Formula: (whole * denominator) + numerator
-        improper_numerator = (whole * denominator) + numerator
+        improper_numerator = (whole * denominator) + numerator if whole >= 0 else (whole * denominator) - numerator
+        return FracMath.simplify(Fraction(improper_numerator, denominator))
+
+    @staticmethod
+    def from_periodic(whole: int, non_repeating: str, repeating: str) -> Fraction:
+        """
+        Converts a periodic (repeating) decimal into a Fraction.
+        Example: 0.1(6) -> whole=0, non_repeating="1", repeating="6" -> 1/6
+        """
+        from fracpylib.fractionlib.fraction import Fraction
         
-        raw_fraction = Fraction(improper_numerator, denominator)
+        non_rep_str = non_repeating if non_repeating else "0"
         
-        # Simplify it to the lowest terms using your existing Recurse logic!
-        return self.simplify(raw_fraction, Recurse=True)
+        # Formula: (non_repeating + repeating) - (non_repeating) / (999...000...)
+        num_part = int(non_rep_str + repeating) - int(non_rep_str)
+        den_part = int(('9' * len(repeating)) + ('0' * len(non_repeating)))
+        
+        frac_part = Fraction(num_part, den_part)
+        
+        if whole == 0:
+            return FracMath.simplify(frac_part)
+            
+        # Add the whole number part
+        return FracMath.add(Fraction(whole, 1), frac_part)
     
-    def getResultOfMul(self, fraction: Fraction):
+    @staticmethod
+    def getResultOfMul(fraction: Fraction) -> int:
         return fraction.denominator * fraction.numerator
     
-    def getResultOfDiv(self, fraction: Fraction):
+    @staticmethod
+    def getResultOfDiv(fraction: Fraction) -> float:
         return fraction.numerator / fraction.denominator

@@ -1,41 +1,28 @@
+"""Class for other (misc) functions"""
+from typing import TYPE_CHECKING
 
-"""Class for other(misc) functions"""
-from fracpylib.fractionlib.fraction import Fraction
-from fracpylib.misc.percentage import Percentage
+if TYPE_CHECKING:
+    from fracpylib.fractionlib.fraction import Fraction
 
 class FracMisc:
-    def __init__(self):
-        pass
     
-    def _is_power_of_10(self, n: int) -> bool:
+    @staticmethod
+    def is_power_of_10(n: int) -> bool:
+        """Checks if a number is a power of 10."""
+        if n <= 0:
+            return False
         while n > 1:
             if n % 10 != 0:
                 return False
             n //= 10
-        return n == 1
+        return True
 
-    def isProper(self, frac: Fraction) -> bool:
-        isTrue = False
-
-        if (frac.denominator > frac.numerator):
-            isTrue = True
-        else:
-            pass
-
-        return isTrue
+    @staticmethod
+    def isProper(frac: Fraction) -> bool:
+        """Returns True if the absolute value of the numerator is strictly less than the denominator."""
+        return abs(frac.numerator) < abs(frac.denominator)
     
-    def isImproper(self, frac: Fraction) -> bool:
-        isTrue = False
-
-        if (frac.denominator < frac.numerator):
-            isTrue = True
-        else:
-            pass
-
-        return isTrue
-    
-    def toPercentage(self, frac: Fraction) -> Percentage:
-        if (self._is_power_of_10(frac.denominator)):
-            return Percentage(frac.numerator / frac.denominator)
-        else:
-            raise ValueError("Denominator must be a power of 10")
+    @staticmethod
+    def isImproper(frac: Fraction) -> bool:
+        """Returns True if the absolute value of the numerator is greater than or equal to the denominator."""
+        return abs(frac.numerator) >= abs(frac.denominator)
