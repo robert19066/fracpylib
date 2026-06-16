@@ -49,16 +49,18 @@ dependencies = [
 check = "python -m mypy --install-types --non-interactive {args:src/fracpylib tests}"
 
 [tool.hatch.scripts]
-publish = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\" && python -m build && python -m twine upload dist/*"
+publish = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\" && python -m build && python -m twine check dist/* && python -m twine upload dist/*"
 
 [tool.hatch.envs.default]
 dependencies = [
   "build",
+  "pytest>=8.0",
   "twine"
 ]
 
 [tool.hatch.envs.default.scripts]
-publish = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\" && python -m build && python -m twine upload dist/*"
+test = "python -m pytest -q"
+publish = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\" && python -m build && python -m twine check dist/* && python -m twine upload dist/*"
 
 [tool.coverage.run]
 source_pkgs = ["fracpylib", "tests"]

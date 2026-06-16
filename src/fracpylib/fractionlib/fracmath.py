@@ -162,7 +162,7 @@ class FracMath:
         return FracMath.simplify(Fraction(improper_numerator, denominator))
 
     @staticmethod
-    def from_periodic(whole: int = 0, non_repeating: str = "", repeating: str = "", sign: int = None) -> Fraction:
+    def from_periodic(whole: int = 0, non_repeating: str = "", repeating: str = "", sign: int = 0) -> Fraction:
         """
         Convert a periodic decimal into a Fraction.
 
@@ -172,11 +172,11 @@ class FracMath:
 
         if not isinstance(whole, Integral) or isinstance(whole, bool):
             raise TypeError("Whole part must be an integer.")
-        if sign is not None and sign not in (-1, 1):
-            raise ValueError("Sign must be 1, -1, or None.")
+        if sign is not None and sign not in (-1, 0, 1):
+            raise ValueError("Sign must be 1, -1, 0, or None.")
 
         whole = int(whole)
-        negative = whole < 0 if sign is None else sign < 0
+        negative = whole < 0 if sign in (None, 0) else sign < 0
         whole = abs(whole)
         non_repeating = FracMath._clean_decimal_digits(non_repeating, "non_repeating", allow_empty=True)
         repeating = FracMath._clean_decimal_digits(repeating, "repeating", allow_empty=True)

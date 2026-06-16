@@ -151,7 +151,7 @@ class Fraction:
         whole: int = 0,
         non_repeating: str = "",
         repeating: str = "",
-        sign: int | None = None,
+        sign: int = 0,
     ) -> Fraction:
         """Create a Fraction from pieces of a periodic decimal."""
         return FracMath.from_periodic(whole, non_repeating, repeating, sign)

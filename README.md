@@ -174,6 +174,8 @@ Build the package locally with:
 python -m build
 ```
 
+Publishing is automated by GitHub Actions on pushes to `main` and version tags. Add a repository secret named `PYPI_API_TOKEN`; the workflow checks the project files, runs `hatch run test`, then runs `hatch run publish`.
+
 ## License
 
 `fracpylib` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
