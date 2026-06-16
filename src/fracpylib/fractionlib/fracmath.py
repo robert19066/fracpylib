@@ -25,7 +25,7 @@ class FracMath:
         return NotImplemented
 
     @staticmethod
-    def simplify(fraction: Fraction, Recurse: bool = True, Value: int = 0) -> Fraction:
+    def simplify(fraction: object, Recurse: bool = True, Value: int = 0) -> Fraction:
         """Return a fraction in lowest terms, or divide by a known common divisor."""
         from fracpylib.fractionlib.fraction import Fraction
 
@@ -49,7 +49,7 @@ class FracMath:
         raise ValueError(f"The value {Value} must be a common divisor.")
 
     @staticmethod
-    def amplify(fraction: Fraction, Value: int) -> Fraction:
+    def amplify(fraction: object, Value: int) -> Fraction:
         """Multiply numerator and denominator by the same non-zero integer."""
         from fracpylib.fractionlib.fraction import Fraction
 
@@ -64,7 +64,7 @@ class FracMath:
         return Fraction(fraction.numerator * Value, fraction.denominator * Value)
 
     @staticmethod
-    def add(fraction1: Fraction, fraction2: Fraction) -> Fraction:
+    def add(fraction1: object, fraction2: object) -> Fraction:
         """Add two Fraction-compatible values."""
         from fracpylib.fractionlib.fraction import Fraction
 
@@ -81,7 +81,7 @@ class FracMath:
         return FracMath.simplify(Fraction(new_numerator, new_denominator))
 
     @staticmethod
-    def sub(fraction1: Fraction, fraction2: Fraction) -> Fraction:
+    def sub(fraction1: object, fraction2: object) -> Fraction:
         """Subtract the second Fraction-compatible value from the first."""
         from fracpylib.fractionlib.fraction import Fraction
 
@@ -98,7 +98,7 @@ class FracMath:
         return FracMath.simplify(Fraction(new_numerator, new_denominator))
 
     @staticmethod
-    def multiply(fraction1: Fraction, fraction2: Fraction) -> Fraction:
+    def multiply(fraction1: object, fraction2: object) -> Fraction:
         """Multiply two Fraction-compatible values."""
         from fracpylib.fractionlib.fraction import Fraction
 
@@ -114,7 +114,7 @@ class FracMath:
         return FracMath.simplify(Fraction(new_numerator, new_denominator))
 
     @staticmethod
-    def divide(fraction1: Fraction, fraction2: Fraction) -> Fraction:
+    def divide(fraction1: object, fraction2: object) -> Fraction:
         """Divide the first Fraction-compatible value by the second."""
         from fracpylib.fractionlib.fraction import Fraction
 
@@ -221,7 +221,7 @@ class FracMath:
         raise TypeError("Expected a Fraction, MixedFraction, int, float, Decimal, or decimal string.")
 
     @staticmethod
-    def to_periodic(fraction: Fraction) -> str:
+    def to_periodic(fraction: object) -> str:
         """Render a Fraction as a finite or periodic decimal string."""
         fraction = FracMath.as_fraction(fraction)
         if fraction is NotImplemented:
@@ -313,14 +313,14 @@ class FracMath:
         )
 
     @staticmethod
-    def getResultOfMul(fraction: Fraction) -> int:
+    def getResultOfMul(fraction: object) -> int:
         fraction = FracMath.as_fraction(fraction)
         if fraction is NotImplemented:
             raise TypeError("Expected a Fraction-compatible value.")
         return fraction.denominator * fraction.numerator
 
     @staticmethod
-    def getResultOfDiv(fraction: Fraction) -> float:
+    def getResultOfDiv(fraction: object) -> float:
         fraction = FracMath.as_fraction(fraction)
         if fraction is NotImplemented:
             raise TypeError("Expected a Fraction-compatible value.")

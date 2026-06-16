@@ -1,7 +1,7 @@
 from __future__ import annotations
 import math
 from numbers import Integral
-from typing import Tuple
+from typing import Tuple, cast
 
 from .fracmath import FracMath
 
@@ -151,7 +151,7 @@ class Fraction:
         whole: int = 0,
         non_repeating: str = "",
         repeating: str = "",
-        sign: int = None,
+        sign: int | None = None,
     ) -> Fraction:
         """Create a Fraction from pieces of a periodic decimal."""
         return FracMath.from_periodic(whole, non_repeating, repeating, sign)
@@ -218,10 +218,10 @@ class MixedFraction:
         return FracMath.multiply(other, self.converted)
 
     def __truediv__(self, other: object) -> Fraction:
-        return FracMath.divide(self.converted, other)
+        return FracMath.divide(self.converted, cast(Fraction, other))
 
     def __rtruediv__(self, other: object) -> Fraction:
-        return FracMath.divide(other, self.converted)
+        return FracMath.divide(cast(Fraction, other), self.converted)
 
     def __neg__(self) -> MixedFraction:
         return MixedFraction.from_fraction(-self.converted)
