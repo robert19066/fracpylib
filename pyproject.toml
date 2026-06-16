@@ -5,16 +5,16 @@ build-backend = "hatchling.build"
 [project]
 name = "fracpylib"
 dynamic = ["version"]
-description = ''
+description = "Exact fraction arithmetic, mixed fractions, and recurring decimal conversion."
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
-keywords = []
+keywords = ["fractions", "math", "mixed-fractions", "rational", "recurring-decimals"]
 authors = [
   { name = "robert19066", email = "andronic.robert12@gmail.com" },
 ]
 classifiers = [
-  Development Status :: 3 - Alpha
+  "Development Status :: 3 - Alpha",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
@@ -23,6 +23,14 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build",
+  "pytest>=8.0",
+  "twine",
 ]
 
 [project.urls]
@@ -33,13 +41,24 @@ Source = "https://github.com/robert19066/fracpylib"
 [tool.hatch.version]
 path = "src/fracpylib/__about__.py"
 
-[tool.hatch.environments.types]
+[tool.hatch.envs.types]
 dependencies = [
   "mypy>=1.0.0",
-  "twine"
 ]
 [tool.hatch.envs.types.scripts]
 check = "python -m mypy --install-types --non-interactive {args:src/fracpylib tests}"
+
+[tool.hatch.scripts]
+publish = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\" && python -m build && python -m twine upload dist/*"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "build",
+  "twine"
+]
+
+[tool.hatch.envs.default.scripts]
+publish = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\" && python -m build && python -m twine upload dist/*"
 
 [tool.coverage.run]
 source_pkgs = ["fracpylib", "tests"]

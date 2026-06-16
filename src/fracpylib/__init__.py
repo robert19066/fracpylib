@@ -2,5 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from fractionlib import *
-__all__ = ["Fraction", "FracMisc", "FracMath", "MixedFraction"]
+from .__about__ import __version__
+from .fractionlib import FracMath, FracMisc, Fraction, MixedFraction
+
+__all__ = ["__version__", "FracMath", "FracMisc", "Fraction", "MixedFraction"]
