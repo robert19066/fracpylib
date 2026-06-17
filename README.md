@@ -179,3 +179,7 @@ Publishing is automated by GitHub Actions on pushes to `main` and version tags. 
 ## License
 
 `fracpylib` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+
+
+## find me on daily.dev:
+<a href="https://app.daily.dev/robert19066"><img src="https://api.daily.dev/devcards/v2/ecPDW57nUVRidLxwsxruz.png?type=wide&r=y72" width="652" alt="Brickboss's Dev Card"/></a>
