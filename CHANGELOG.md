@@ -4,3 +4,4 @@ Ver 2.2.0:
 - Added CHANGELOG.md
 - Added Percentage class
 - Critical Bugfixes in FracMath related to negative numbers!
+- Bugfixes in tester!
