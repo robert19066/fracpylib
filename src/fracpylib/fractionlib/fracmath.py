@@ -276,11 +276,13 @@ class FracMath:
         for digit in digits:
             numerator = (numerator * 10) + digit
 
-        if exponent >= 0:
+        if isinstance(exponent, int) and exponent >= 0:
             numerator *= 10 ** exponent
             denominator = 1
-        else:
+        elif isinstance(exponent, int):
             denominator = 10 ** (-exponent)
+        else:
+            raise ValueError("Invalid exponent in decimal representation.")
 
         if sign:
             numerator = -numerator

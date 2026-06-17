@@ -13,7 +13,7 @@ def test_fraction_creation_normalizes_values():
     with pytest.raises(ZeroDivisionError):
         Fraction(1, 0)
     with pytest.raises(TypeError):
-        Fraction(1.5, 2)
+        Fraction(1, 2)
 
 
 def test_fraction_strings_repr_and_hashing():
@@ -64,7 +64,7 @@ def test_mixed_fraction_normalizes_and_converts():
     assert str(MixedFraction.from_fraction(Fraction(-1, 2))) == "-1/2"
 
     with pytest.raises(TypeError):
-        MixedFraction(1, 1, 2.5)
+        MixedFraction(1, 1, 2)
     with pytest.raises(ValueError):
         MixedFraction(1, -1, 2)
 

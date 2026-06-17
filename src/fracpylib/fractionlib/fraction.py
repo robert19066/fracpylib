@@ -282,3 +282,20 @@ class MixedFraction:
         if sign < 0:
             return 0, -numerator, fraction.denominator
         return whole, numerator, fraction.denominator
+
+class Percentage:
+    __slots__ = ('value',)
+
+    def __init__(self, value: float):
+        if not isinstance(value, (int, float)):
+            raise TypeError("Percentage value must be a number.")
+        self.value = float(value)
+
+    def __str__(self) -> str:
+        return f"{self.value}%"
+
+    def __repr__(self) -> str:
+        return f"Percentage({self.value})"
+
+    def to_fraction(self) -> Fraction:
+        return Fraction(int(self.value * 100), 10000)
