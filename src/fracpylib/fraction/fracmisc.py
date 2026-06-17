@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from .fracmath import FracMath
 
 if TYPE_CHECKING:
-    from fracpylib.fractionlib.fraction import Fraction
+    from fracpylib.fraction.fraction import Fraction
 
 
 class FracMisc:

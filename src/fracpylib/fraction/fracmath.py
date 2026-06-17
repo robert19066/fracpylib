@@ -5,7 +5,7 @@ from numbers import Integral
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from fracpylib.fractionlib.fraction import Fraction
+    from fracpylib.fraction.fraction import Fraction
 
 
 class FracMath:
@@ -14,7 +14,7 @@ class FracMath:
     @staticmethod
     def as_fraction(value: object) -> Fraction:
         """Return *value* as a Fraction, or NotImplemented for unsupported inputs."""
-        from fracpylib.fractionlib.fraction import Fraction, MixedFraction
+        from fracpylib.fraction.fraction import Fraction, MixedFraction
 
         if isinstance(value, Fraction):
             return value
@@ -27,7 +27,7 @@ class FracMath:
     @staticmethod
     def simplify(fraction: object, Recurse: bool = True, Value: int = 0) -> Fraction:
         """Return a fraction in lowest terms, or divide by a known common divisor."""
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         fraction = FracMath.as_fraction(fraction)
         if fraction is NotImplemented:
@@ -51,7 +51,7 @@ class FracMath:
     @staticmethod
     def amplify(fraction: object, Value: int) -> Fraction:
         """Multiply numerator and denominator by the same non-zero integer."""
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         fraction = FracMath.as_fraction(fraction)
         if fraction is NotImplemented:
@@ -66,7 +66,7 @@ class FracMath:
     @staticmethod
     def add(fraction1: object, fraction2: object) -> Fraction:
         """Add two Fraction-compatible values."""
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         fraction1 = FracMath.as_fraction(fraction1)
         fraction2 = FracMath.as_fraction(fraction2)
@@ -83,7 +83,7 @@ class FracMath:
     @staticmethod
     def sub(fraction1: object, fraction2: object) -> Fraction:
         """Subtract the second Fraction-compatible value from the first."""
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         fraction1 = FracMath.as_fraction(fraction1)
         fraction2 = FracMath.as_fraction(fraction2)
@@ -100,7 +100,7 @@ class FracMath:
     @staticmethod
     def multiply(fraction1: object, fraction2: object) -> Fraction:
         """Multiply two Fraction-compatible values."""
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         fraction1 = FracMath.as_fraction(fraction1)
         fraction2 = FracMath.as_fraction(fraction2)
@@ -116,7 +116,7 @@ class FracMath:
     @staticmethod
     def divide(fraction1: object, fraction2: object) -> Fraction:
         """Divide the first Fraction-compatible value by the second."""
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         fraction1 = FracMath.as_fraction(fraction1)
         fraction2 = FracMath.as_fraction(fraction2)
@@ -134,7 +134,7 @@ class FracMath:
     @staticmethod
     def mixedToNormal(whole: int, numerator: int, denominator: int) -> Fraction:
         """Convert a mixed fraction into an improper Fraction."""
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         for name, value in (
             ("whole", whole),
@@ -168,7 +168,7 @@ class FracMath:
 
         Example: 1.1(6) -> whole=1, non_repeating="1", repeating="6" -> 7/6
         """
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         if not isinstance(whole, Integral) or isinstance(whole, bool):
             raise TypeError("Whole part must be an integer.")
@@ -198,7 +198,7 @@ class FracMath:
     @staticmethod
     def from_decimal(value: object) -> Fraction:
         """Convert an int, finite decimal string, Decimal, float, or periodic string to a Fraction."""
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         fraction = FracMath.as_fraction(value)
         if fraction is not NotImplemented:
@@ -266,7 +266,7 @@ class FracMath:
 
     @staticmethod
     def _from_decimal_object(value: Decimal) -> Fraction:
-        from fracpylib.fractionlib.fraction import Fraction
+        from fracpylib.fraction.fraction import Fraction
 
         if not value.is_finite():
             raise ValueError("Cannot convert an infinite or NaN decimal.")

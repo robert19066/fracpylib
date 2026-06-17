@@ -1,5 +1,5 @@
-name: Publish
-# v2
+name: publish
+# v2.5
 on:
   push:
     branches:
@@ -14,9 +14,9 @@ concurrency:
   group: publish-${{ github.ref }}
   cancel-in-progress: false
 
-jobs:
+jobs: 
   publish:
-    name: Hatch publish
+    name: =-Publish to PyPI-=
     if: ${{ github.event.head_commit && !contains(github.event.head_commit.message, 'MISC') }}
     runs-on: ubuntu-latest
     steps:
@@ -50,7 +50,7 @@ jobs:
         shell: bash
         run: |
           if [ -z "$PYPI_API_TOKEN" ]; then
-            echo "::error title=Missing PYPI_API_TOKEN::Add a repository secret named PYPI_API_TOKEN before publishing."
+            echo "::error title=Missing PYPI_API_TOKEN::Add a repository secret named PYPI_API_TOKEN before publishing dummy."
             exit 1
           fi
 

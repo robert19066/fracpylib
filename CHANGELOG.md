@@ -1,7 +1,7 @@
-Ver 2.2.0:
-(17-06-2026 | minor)
+Ver 2.2.1:
+(17-06-2026 | patch)
 -------------------------
-- Added CHANGELOG.md
-- Added Percentage class
-- Critical Bugfixes in FracMath related to negative numbers!
-- Bugfixes in tester!
+- gh actions fixes.
+- tester fixes.
+- fractionlib->fraction.
+- bawgfixes

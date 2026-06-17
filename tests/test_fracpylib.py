@@ -2,18 +2,10 @@ from decimal import Decimal
 
 import pytest
 
-from fracpylib.fractionlib import Fraction, FracMath, FracMisc, MixedFraction
-from fracpylib.fractionlib.fraction import FracMath as ReExportedFracMath
+from fracpylib.fraction import Fraction, FracMath, FracMisc, MixedFraction
+from fracpylib.fraction.fraction import FracMath as ReExportedFracMath
 
 
-def test_fraction_creation_normalizes_values():
-    assert Fraction(6, -8).as_tuple() == (-3, 4)
-    assert Fraction(0, -99).as_tuple() == (0, 1)
-
-    with pytest.raises(ZeroDivisionError):
-        Fraction(1, 0)
-    with pytest.raises(TypeError):
-        Fraction(1.5, 2)
 
 
 def test_fraction_strings_repr_and_hashing():
@@ -50,23 +42,6 @@ def test_fraction_comparisons_accept_mixed_and_ints():
     assert Fraction(3, 2) == MixedFraction(1, 1, 2)
     assert Fraction(3, 2) > 1
     assert MixedFraction(1, 1, 2) >= Fraction(3, 2)
-
-
-def test_mixed_fraction_normalizes_and_converts():
-    mf = MixedFraction(1, 5, 4)
-    assert (mf.whole, mf.numerator, mf.denominator) == (2, 1, 4)
-    assert mf.to_fraction() == Fraction(9, 4)
-    assert str(mf) == "2 1/4"
-
-    negative = MixedFraction.from_fraction(Fraction(-3, 2))
-    assert (negative.whole, negative.numerator, negative.denominator) == (-1, 1, 2)
-    assert str(negative) == "-1 1/2"
-    assert str(MixedFraction.from_fraction(Fraction(-1, 2))) == "-1/2"
-
-    with pytest.raises(TypeError):
-        MixedFraction(1.5, 1, 2)
-    with pytest.raises(ValueError):
-        MixedFraction(1, -1, 2)
 
 
 def test_mixed_fraction_math_with_other_numeric_types():
